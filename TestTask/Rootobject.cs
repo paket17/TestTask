@@ -47,5 +47,4 @@ namespace TestTask
     public class Certificates
     {
     }
-
 }

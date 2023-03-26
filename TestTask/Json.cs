@@ -21,5 +21,40 @@ namespace TestTask
                 return json;
             }
         }
+
+        public static Rootobject RegionSort(Rootobject json, string region)
+        {
+            List<Cu> list = new List<Cu>();
+            for (int i = 0; i < json.cus.Length; i++)
+            {
+                if (json.cus[i].region == region)
+                {
+                    list.Add(json.cus[i]);
+                }
+            }
+            var sortedJson = new Rootobject() { cus = new Cu[list.Count] };
+            sortedJson.cus = list.ToArray();
+            return sortedJson;
+        }
+
+        public static List<Cu> CodeSort(Rootobject json)
+        {
+            return json.cus.OrderByDescending(x => x.type)
+                .ThenBy(x => x.code)
+                .ToList();
+        }
+
+        public static Dictionary<string, int> GetDictTypes(List<Cu> list)
+        {
+            var types = new Dictionary<string, int>();
+            foreach (var item in list)
+            {
+                if (!types.ContainsKey(item.type) && item.type != null)
+                    types.Add(item.type, 1);
+                else
+                    types[item.type]++;
+            }
+            return types;
+        }
     }
 }
