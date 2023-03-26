@@ -10,6 +10,7 @@ namespace TestTask
         {
             var json = Json.Deserialize();
 
+            Console.WriteLine("test");
             Console.WriteLine("\nДля выхода из программы нажмите любую клавишу...");
             Console.ReadKey();
         }
