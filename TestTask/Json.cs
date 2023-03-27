@@ -11,18 +11,18 @@ namespace TestTask
 {
     internal static class Json
     {
-        public static Rootobject Deserialize()
+        public static JsonData Deserialize()
         {
             using (var client = new HttpClient())
             {
                 var response = client.GetAsync("https://api.kontur.ru/dc.contacts/v1/cus").Result;
                 var file = response.Content.ReadAsStringAsync().Result;
-                var json = JsonSerializer.Deserialize<Rootobject>(file);
+                var json = JsonSerializer.Deserialize<JsonData>(file);
                 return json;
             }
         }
 
-        public static Rootobject RegionSort(Rootobject json, string region)
+        public static JsonData RegionSort(JsonData json, string region)
         {
             List<Cu> list = new List<Cu>();
             for (int i = 0; i < json.cus.Length; i++)
@@ -32,12 +32,12 @@ namespace TestTask
                     list.Add(json.cus[i]);
                 }
             }
-            var sortedJson = new Rootobject() { cus = new Cu[list.Count] };
+            var sortedJson = new JsonData() { cus = new Cu[list.Count] };
             sortedJson.cus = list.ToArray();
             return sortedJson;
         }
 
-        public static List<Cu> CodeSort(Rootobject json)
+        public static List<Cu> CodeSort(JsonData json)
         {
             return json.cus.OrderByDescending(x => x.type)
                 .ThenBy(x => x.code)

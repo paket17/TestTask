@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestTask
 {
-    public class Rootobject
+    public class JsonData
     {
         public Cu[]? cus { get; set; }
     }
